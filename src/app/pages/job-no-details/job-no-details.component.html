@@ -1,0 +1,84 @@
+<div class="col-md-12 p-0">
+    <div class="page-title"> Job no Details </div>
+        <div class="col-md-12 pt-3 pb-2 outline">
+      <div class="row">
+        <div class="p-0 col-10">
+          <form [formGroup]="filterForm">
+                      <mat-form-field class="col-md-3">
+                      <mat-label>Station Name</mat-label>
+                      <mat-select formControlName="station_name" multiple>
+                      <mat-option *ngFor="let item of stationAllList" [value]="item.station_name">{{item.station_name}} - {{item.type}}</mat-option>
+                      </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="col-md-3">
+                      <mat-label>Job Number</mat-label>
+                      <mat-select formControlName="job_no" multiple>
+                      <mat-option *ngFor="let item of jobNumberList" [value]="item.job_no">{{item.job_no}}</mat-option>
+                      </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="col-md-3">
+                      <mat-label>Serving Level / Location</mat-label>
+                      <mat-select formControlName="serving_level" multiple>
+                      <mat-option *ngFor="let item of jobNumberList" [value]="item.serving_level">{{item.serving_level}}</mat-option>
+                      </mat-select>
+                      </mat-form-field>
+                    
+          </form>
+         </div>
+             <div class="col-md-1 mt-2 p-0 pl-4">
+        <button type="submit" (click)="getFormsValue()" mat-button class="btnnn-prime-fn">Submit</button>
+        </div>
+        <div class="col-md-1 mt-2 p-0 pl-2">
+          <button type="submit" (click)="clearForm()" mat-button class="btnnn-prime-fn">Clear</button>
+          </div>
+      </div>
+    </div>
+   
+
+
+
+   
+      <div class="row pt-2">
+        <div class="col-md-10 mt-2 p-0 pl-3 mb-2">
+          <button mat-raised-button class="btnnn-secondary-fn mr-2" (click)="exportAsXLSX()">
+              <img  src="../../../assets/images/excel.png" style="width: 25px" class="button-icon" alt="excel icon" mat-responsive /> Export to Excel</button>
+         </div>
+  
+        <div class="col-md-2 p-0 example-button-container pr-3" >
+          <button style="float: right;" mat-mini-fab color="primary"   matTooltip="Create Job No" (click)="addRecord()"> + </button>
+        </div>
+      </div>
+ 
+
+      <div class="mat-table-container" id="test1" #test1>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matTableResponsive>
+      <!-- Dynamic Column -->
+      <div *ngFor="let displayCol of displayedColumns; let i = index" matColumnDef="{{ displayCol }}">
+      <th mat-header-cell class="field-title" *matHeaderCellDef mat-sort-header> {{ displayedLabelColumns[i] }} </th>
+    
+        <ng-container *matCellDef="let element" [ngSwitch]="displayCol">
+          <td mat-cell *ngSwitchCase="'actions'" (click)="$event.stopPropagation()">
+            <button mat-icon-button  matTooltip="Edit"
+            (click)="editRecord(element)">
+            <mat-icon class="edit-mat-icon">edit</mat-icon>
+          </button>
+          </td>
+          <td mat-cell *ngSwitchCase="'createdDate'">
+            {{ element[displayCol] | date: DATE_FORMAT }}
+          </td>
+          <td mat-cell *ngSwitchCase="'updatedDate'">
+            {{ element[displayCol] | date: DATE_FORMAT }}
+          </td>
+           <td mat-cell *ngSwitchDefault>
+           <div *ngIf="!element[displayCol]">-</div>
+           <div *ngIf="element[displayCol]">{{ element[displayCol] }}</div>
+           </td>
+        </ng-container>
+      </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" ></tr>
+    </table>
+    </div>
+    
+      <mat-paginator [pageSize]="PAGE_SIZE" [pageSizeOptions]="PAGINATION_RANGE" showFirstLastButtons></mat-paginator>
+    </div>

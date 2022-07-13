@@ -1,0 +1,43 @@
+<div class="col-md-12">
+    <form [formGroup]="addEditForm">
+
+          <mat-form-field class="pt-2" appearance="outline">
+            <mat-label class="">Station Name</mat-label>
+            <mat-select matNativeControl placeholder="" [errorStateMatcher]="matcher" formControlName="station_id">
+                <mat-option *ngFor="let option of Station_list" [value]="option._id">{{ option.station_name }} - {{ option.type }} </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addEditForm.controls.station_id.hasError('required') && isShowErrors" >Station  Name is required</mat-error>
+          </mat-form-field>
+          
+          <mat-form-field class="pt-2" appearance="outline">
+            <mat-label class="">Job no</mat-label>
+            <input matInput   [errorStateMatcher]="matcher" formControlName="job_no" type="text"   />
+            <mat-error *ngIf="addEditForm.controls.job_no.hasError('required') && isShowErrors" >Job No is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="pt-2" appearance="outline">
+            <mat-label class="">Unique Id</mat-label>
+            <input matInput   [errorStateMatcher]="matcher" formControlName="unique_id" type="text"   />
+            <mat-error *ngIf="addEditForm.controls.unique_id.hasError('required') && isShowErrors" >Unique id is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="pt-2" appearance="outline">
+            <mat-label class="">Serving Level</mat-label>
+            <input matInput   [errorStateMatcher]="matcher" formControlName="serving_level" type="text"   />
+            <mat-error *ngIf="addEditForm.controls.serving_level.hasError('required') && isShowErrors" >Serving level is required</mat-error>
+          </mat-form-field>
+
+
+
+          <mat-form-field class="pt-2" appearance="outline">
+            <mat-label class="">Created At</mat-label>
+            <input matInput   [errorStateMatcher]="matcher" formControlName="created_date" type="date"   />
+            <mat-error *ngIf="addEditForm.controls.created_date.hasError('required') && isShowErrors" >Created at is required</mat-error>
+          </mat-form-field>
+
+
+
+         
+
+</form>
+</div>

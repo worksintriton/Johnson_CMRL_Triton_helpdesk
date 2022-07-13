@@ -1,0 +1,19 @@
+<div class="col-md-12 p-0">
+  <div class="page-title"> Delete Ticket Details </div>
+
+  <div class="col-md-12">
+    <div class="row">
+      <mat-form-field class="col-md-6 p-0" appearance="outline" >
+        <mat-label>Ticket No</mat-label>
+        <input matInput [(ngModel)]="ticket_no" placeholder="TIC-1" />
+      </mat-form-field>
+      <div class="col-md-4 mt-2 p-0 pl-4">
+        <button mat-raised-button class="btnnn-secondary-fn mr-2" (click)="delete_action()">Delete Ticket</button>
+        <button mat-raised-button class="btnnn-secondary-fn mr-2" (click)="revert_action()">Revert Ticket</button>
+
+       </div>
+
+    </div>
+  </div>
+
+  </div>

@@ -1,0 +1,57 @@
+<div class="col-md-12 p-0">
+    <div class="page-title"> Station Details </div>
+    
+    <div class="col-md-12">
+      <div class="row">
+        <mat-form-field class="col-md-6 p-0" appearance="outline" >
+          <mat-label>Search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="" />
+        </mat-form-field>
+        <div class="col-md-4 mt-2 p-0 pl-4">
+          <button mat-raised-button class="btnnn-secondary-fn mr-2" (click)="exportAsXLSX()">
+              <img  src="../../../assets/images/excel.png" style="width: 25px" class="button-icon" alt="excel icon" mat-responsive /> Export to Excel</button>
+         </div>
+        <div class="col-md-2 p-0 example-button-container" >
+          <button style="float: right;" mat-mini-fab color="primary"   matTooltip="Create Station" (click)="addRecord()"> + </button>
+        </div>
+      </div>
+    </div>
+
+
+
+      <div class=" mat-table-container" id="test1" #test1>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matTableResponsive>
+      <!-- Dynamic Column -->
+      <div *ngFor="let displayCol of displayedColumns; let i = index" matColumnDef="{{ displayCol }}">
+      <th mat-header-cell class="field-title" *matHeaderCellDef mat-sort-header> {{ displayedLabelColumns[i] }} </th>
+    
+        <ng-container *matCellDef="let element" [ngSwitch]="displayCol">
+          <td mat-cell *ngSwitchCase="'actions'" (click)="$event.stopPropagation()">
+            <button mat-icon-button  matTooltip="Edit"
+            (click)="editRecord(element)">
+            <mat-icon class="edit-mat-icon">edit</mat-icon>
+          </button>
+          <button mat-icon-button  matTooltip="Delete"
+          (click)="deleteRecord(element)">
+          <mat-icon class="delete-mat-icon">delete</mat-icon>
+        </button>
+          </td>
+          <td mat-cell *ngSwitchCase="'createdDate'">
+            {{ element[displayCol] | date: DATE_FORMAT }}
+          </td>
+          <td mat-cell *ngSwitchCase="'updatedDate'">
+            {{ element[displayCol] | date: DATE_FORMAT }}
+          </td>
+           <td mat-cell *ngSwitchDefault>
+           <div *ngIf="!element[displayCol]">-</div>
+           <div *ngIf="element[displayCol]">{{ element[displayCol] }}</div>
+           </td>
+        </ng-container>
+      </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]= "{'formFieldAdded': row.isActive && row.isActive == 'N'}"></tr>
+    </table>
+    </div>
+    
+      <mat-paginator [pageSize]="PAGE_SIZE" [pageSizeOptions]="PAGINATION_RANGE" showFirstLastButtons></mat-paginator>
+    </div>

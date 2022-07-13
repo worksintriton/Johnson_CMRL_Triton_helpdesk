@@ -1,0 +1,32 @@
+<!-- Topbar Start -->
+<div class="p-0 navbar navbar-expand flex-column flex-md-row navbar-custom">
+  <div class="container-fluid">
+    <!-- LOGO -->
+    <a routerLink="/" class="navbar-brand mr-0 mr-md-2 logo">
+      <span class="logo-lg">
+        <img style="width: 251px;height: 69px;" src="assets/images/logo.PNG" alt="" height="24" />
+      </span>
+      <span class="logo-sm">
+        <img src="assets/images/logo.PNG" alt="" height="24" />
+      </span>
+    </a>
+
+    <ul class="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
+      <li class="">
+        <button class="button-menu-mobile open-left disable-btn" (click)="toggleMobileMenu($event)">
+          <i [attr.data-feather]="'menu'" class="menu-icon" appFeatherIcon></i>
+          <i [attr.data-feather]="'x'" class="close-icon" appFeatherIcon></i>
+        </button>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
+
+      <li class="nav-link">
+      <img ngbTooltip="logout" (click)="logout()" class="" src="../../../../assets/images/log-out.svg" alt="" width="17" /> 
+    </li>
+    </ul>
+  </div>
+
+</div>
+<!-- end Topbar -->

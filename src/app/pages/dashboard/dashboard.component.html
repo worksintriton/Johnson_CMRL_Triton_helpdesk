@@ -1,0 +1,293 @@
+<div class="col-md-12">
+<div class="page-title"> Dashboard </div>
+<div class="container-fluid">
+
+
+  <div class="row">
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <div class="card-body card-hover p-0" (click)="userStatus('faults')">
+            <div class="media p-3">
+                <div class="media-body">
+                    <span class="text-muted  font-size-12 font-weight-bold">No fo Faults</span>
+                    <h2 class="mb-0">{{fault_count}}</h2>
+                </div>
+                <div class="align-self-center">
+                    <span class="">
+                        <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg icon-dual-{{ color }}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <div class="card-body card-hover p-0" (click)="userStatus('Lifts')">
+            <div class="media p-3">
+                <div class="media-body">
+                    <span class="text-muted font-size-12 font-weight-bold">Total Lifts </span>
+                    <h2 class="mb-0">{{ticketLiftsCount}}</h2>
+                </div>
+                <div class="align-self-center">
+                    <span class="">
+                        <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg icon-dual-{{ color }}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <div class="card-body card-hover p-0" (click)="userStatus('Escalators')" >
+            <div class="media p-3">
+                <div class="media-body">
+                    <span class="text-muted font-size-12 font-weight-bold">total Escalators</span>
+                    <h2 class="mb-0">{{ticketElsCount}}</h2>
+                </div>
+                <div class="align-self-center">
+                    <span class="">
+                        <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg icon-dual-{{ color }}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <div class="card-body card-hover p-0" (click)="userStatus('')" >
+            <div class="media p-3">
+                <div class="media-body">
+                    <span class="text-muted font-size-12 font-weight-bold">Total service Mech Login </span>
+                    <h2 class="mb-0">{{numUserLogin}}</h2>
+                </div>
+                <div class="align-self-center">
+                    <span class="">
+                        <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg icon-dual-{{ color }}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <div class="card-body card-hover p-0" (click)="userStatus('')" >
+            <div class="media p-3">
+                <div class="media-body">
+                    <span class="text-muted font-size-12 font-weight-bold">Total service Mech logout</span>
+                    <h2 class="mb-0">{{numUserLogin}}</h2>
+                </div>
+                <div class="align-self-center">
+                    <span class="">
+                        <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg icon-dual-{{ color }}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <div class="card-body card-hover p-0" (click)="userStatus('')">
+            <div class="media p-3">
+                <div class="media-body">
+                    <span style="text-transform: none" class="text-muted  font-size-12 font-weight-bold">Total no of Cmrl user</span>
+                    <h2 class="mb-0">{{cmrlCount}}</h2>
+                </div>
+                <div class="align-self-center">
+                    <span class="">
+                        <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg icon-dual-{{ color }}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+      <div class="card">
+        <div class="card-body card-hover p-0" (click)="userStatus('')">
+            <div class="media p-3">
+                <div class="media-body">
+                    <span style="text-transform: none" class="text-muted font-size-12 font-weight-bold">Total no of Johnson user</span>
+                    <h2 class="mb-0">{{jonsonCount}}</h2>
+                </div>
+                <div class="align-self-center">
+                    <span class="">
+                        <i [attr.data-feather]="icon" appFeatherIcon class="icon-lg icon-dual-{{ color }}"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="iscmrl_user">
+    <div class="col-md-12 col-xl-12">
+    <div class="card">
+      <div class="card-body p-1">   <div class="page-sub-title-1 p-1">Lifts Breakdown Status </div>
+          <div class="media p-1">
+
+            <div class="media-body" (click)="getFormsValue('Open','LIFT')">
+                <span class="text-muted font-size-12 font-weight-bold">Open</span>
+                <h2 class="mb-0">{{left_Open}}</h2>
+            </div>
+
+            <div class="media-body" (click)="getFormsValue('Inprogress','LIFT')">
+                <span class="text-muted font-size-12 font-weight-bold">Inprogress </span>
+                <h2 class="mb-0">{{left_InCompleted}}</h2>
+            </div>
+
+              <div class="media-body" (click)="getFormsValue('Pending','LIFT')">
+                  <span class="text-muted font-size-12 font-weight-bold">Pending </span>
+                  <h2 class="mb-0">{{left_Pending}}</h2>
+              </div>
+
+              <div class="media-body" (click)="getFormsValue('Completed','LIFT')">
+                  <span class="text-muted font-size-12 font-weight-bold">Completed </span>
+                  <h2 class="mb-0">{{left_Completed}}</h2>
+              </div>
+
+
+
+            <div class="media-body" (click)="getFormsValue('Close','LIFT')">
+                <span class="text-muted font-size-12 font-weight-bold">Closed</span>
+                <h2 class="mb-0">{{left_Close}}</h2>
+            </div>
+
+            <!-- <div class="media-body">
+                <span class="text-muted text-uppercase font-size-12 font-weight-bold">In progress</span>
+                <h2 class="mb-0">{{jonsonCount}}</h2>
+            </div> -->
+
+          </div>
+      </div>
+  </div>
+  </div>
+
+</div>
+
+<div class="row"  *ngIf="isTicketStatus">
+    <div class="col-md-12 col-xl-12">
+    <div class="card">
+      <div class="card-body p-1">   <div class="page-sub-title-1 p-1">Escalators Breakdown Status </div>
+          <div class="media p-1">
+
+            <div class="media-body" (click)="getFormsValue('Open','ESCALATORS')">
+                <span class="text-muted  font-size-12 font-weight-bold">Open</span>
+                <h2 class="mb-0">{{ESCALATORS_Open}}</h2>
+            </div>
+
+            <div class="media-body" (click)="getFormsValue('Inprogress','ESCALATORS')">
+                <span class="text-muted font-size-12 font-weight-bold">Inprogress </span>
+                <h2 class="mb-0">{{ESCALATORS_InCompleted}}</h2>
+            </div>
+
+            <div class="media-body" (click)="getFormsValue('Pending','ESCALATORS')">
+                <span class="text-muted font-size-12 font-weight-bold">Pending </span>
+                <h2 class="mb-0">{{ESCALATORS_Pending}}</h2>
+            </div>
+
+              <div class="media-body" (click)="getFormsValue('Completed','ESCALATORS')">
+                  <span class="text-muted font-size-12 font-weight-bold">Completed </span>
+                  <h2 class="mb-0">{{ESCALATORS_Completed}}</h2>
+              </div>
+
+
+            <div class="media-body" (click)="getFormsValue('Close','ESCALATORS')">
+                <span class="text-muted font-size-12 font-weight-bold">Closed</span>
+                <h2 class="mb-0">{{ESCALATORS_Close}}</h2>
+            </div>
+
+            <!-- <div class="media-body">
+                <span class="text-muted text-uppercase font-size-12 font-weight-bold">In progress</span>
+                <h2 class="mb-0">{{jonsonCount}}</h2>
+            </div> -->
+
+          </div>
+      </div>
+  </div>
+  </div>
+
+</div>
+
+<div class="row" *ngIf="table_visible">
+  <div class="col-md-12 p-0">
+    <div class="page-title">Ticket Details </div>
+    <div *ngIf="List && List.length == 0">No record found </div>
+   <div *ngIf="List && List.length > 0">
+      <div class="mat-table-container" id="test1" #test1>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matTableResponsive>
+      <!-- Dynamic Column -->
+      <div *ngFor="let displayCol of displayedColumns; let i = index" matColumnDef="{{ displayCol }}">
+      <th mat-header-cell class="field-title" *matHeaderCellDef mat-sort-header> {{ displayedLabelColumns[i] }} </th>
+
+        <ng-container *matCellDef="let element" [ngSwitch]="displayCol">
+
+          <td mat-cell *ngSwitchCase="'actions'">
+          <button mat-icon-button  matTooltip="View"
+          (click)="viewRecord(element.ticket_no)">
+          <mat-icon class="edit-mat-icon">visibility</mat-icon>
+        </button>
+          </td>
+
+          <td mat-cell *ngSwitchCase="'createdDate'">
+            {{ element[displayCol] | date: DATE_FORMAT }}
+          </td>
+          <td mat-cell *ngSwitchCase="'updatedDate'">
+            {{ element[displayCol] | date: DATE_FORMAT }}
+          </td>
+           <td mat-cell *ngSwitchDefault>
+           <div *ngIf="!element[displayCol]">-</div>
+           <div *ngIf="element[displayCol]">{{ element[displayCol] }}</div>
+           </td>
+        </ng-container>
+      </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]= "{'formFieldAdded': row.isActive && row.isActive == 'N'}"></tr>
+    </table>
+    </div>
+
+      <mat-paginator [pageSize]="PAGE_SIZE" [pageSizeOptions]="PAGINATION_RANGE" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+  <!-- <div class="row">
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-body pt-2">
+          <h6 class="font-size-16 mb-4">Chart 1</h6>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card">
+        <div class="card-body pt-2">
+
+          <h6 class="font-size-16 mb-4">Chart 2</h6>
+
+          <div class="row calendar-widget">
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-6">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+</div>
+
+</div>

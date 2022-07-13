@@ -1,0 +1,131 @@
+
+
+
+    <div class="col-md-12 p-0">
+        <div class="page-title">Ticket Details </div>
+  
+        <div class="row outline m-0 mt-2 mb-2 p-0">
+          <div class="col-12 pt-1 page-sub-title-2">Select Month</div>
+          <form  class="col-12 row p-0 pl-3">
+              <div class="col-md-3 pull-left">
+                    <input class="form-control" type="month" placeholder="Select Month" [(ngModel)]="selectedDate" name = "selectedDate"  (dateChange)="setEndDateMinValue(selectedDate)">
+              </div>
+              <div class="col-md-3 pt-2 pull-left">
+                  <button mat-raised-button (click)="submitData()" class="btnnn-prime-fn">Search</button>&nbsp;&nbsp;
+                  <button type="submit" (click)="filterDatasClearForm()" mat-button class="btnnn-prime-fn">Clear</button>
+              </div>
+          </form>
+      </div>
+  
+          <div class="loader" *ngIf="loader_show"></div>
+          <h3 class="" *ngIf="final_data.length == 0">No Record Found</h3>
+  
+          <div class="mat-table-container" id="test1" #test1 *ngIf="!loader_show" >
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matTableResponsive>
+          <!-- Dynamic Column -->
+          <div *ngFor="let displayCol of displayedColumns; let i = index" matColumnDef="{{ displayCol }}">
+          <th mat-header-cell class="field-title" *matHeaderCellDef mat-sort-header> {{ displayedLabelColumns[i] }} </th>
+  
+            <ng-container *matCellDef="let element" [ngSwitch]="displayCol">
+  
+              <td mat-cell *ngSwitchCase="'actions'">
+              <button mat-icon-button  matTooltip="View"
+              (click)="viewRecord(element.ticket_no)">
+              <mat-icon class="edit-mat-icon">visibility</mat-icon>
+            </button>
+              </td>
+  
+              <td mat-cell *ngSwitchCase="'createdDate'">
+                {{ element[displayCol] | date: DATE_FORMAT }}
+              </td>
+              <td mat-cell *ngSwitchCase="'updatedDate'">
+                {{ element[displayCol] | date: DATE_FORMAT }}
+              </td>
+               <td mat-cell *ngSwitchDefault>
+               <div *ngIf="!element[displayCol]">-</div>
+               <div *ngIf="element[displayCol]">{{ element[displayCol] }}</div>
+               </td>
+            </ng-container>
+          </div>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]= "{'formFieldAdded': row.isActive && row.isActive == 'N'}"></tr>
+        </table>
+          </div>
+          <mat-paginator [pageSize]="PAGE_SIZE" [pageSizeOptions]="PAGINATION_RANGE" showFirstLastButtons></mat-paginator>
+  
+  
+      </div>
+
+      <div class="row">
+        <div class="col-md-12" style="text-align: right;">
+       <button class="btnnn-prime-fn" (click)="printComponent('component1')" >Print</button>
+       </div>
+        </div>
+      <div class="container" id="component1"> 
+      <div class="row">
+        <div class="col-md-12" style="text-align: center;">
+          <p style="font-size: 30px !important;
+          font-weight: 700;">Escalators</p>
+        </div>
+        <div class="col-md-12" style="text-align: center;">
+        <p style="font-size: 30px !important;
+        font-weight: 700;">Auto Calculation of {{selectedDate |  date:'MMM - yyyy'}}</p>
+        </div>
+      </div>
+      <div class="row" style="padding: 25px;background: white;color: black;">
+        <table>
+          <tr>
+            <th>Total Operation Time</th>
+            <td>
+              <span> ({{lift_quantity}} * {{lift_operation_time}}) {{no_of_days}}  </span><br>
+              <span style="color: gray;">(total no of lifts x total running hours) x total no of days per month</span> 
+              </td>
+            <td>{{total_operation_time}}</td>
+          </tr>
+          <tr>
+            <th>Total Up Time</th>
+            <td><span>{{total_operation_time}} - {{total_down_time}}</span><br>
+              <span style="color: gray;">total operation time - total down time</span> 
+            </td>
+            <td>{{total_up_time}}</td>
+          </tr>
+          <tr>
+            <th>Call out Ratio</th>
+            <td><span>({{this.no_of_breakdown}} * {{no_of_months}})/{{lift_quantity}}</span><br>
+              <span style="color: gray;">(no of breakdown * no of months) / lift quantity)</span> 
+            </td>
+            <td>{{call_out_ratio}}</td>
+          </tr>
+          <!-- <tr>
+            <th>MTBMA</th>
+            <td><span>{{total_up_time}} / ({{no_of_breakdown}} + {{lift_quantity}})</span><br>
+              <span style="color: gray;">total up time / (no of breakdown + lift quantity)</span> 
+            </td>
+            <td>{{mtbma}}</td>
+          </tr> -->
+          <tr>
+            <th>MTBF</th>
+            <td><span>{{total_operation_time}} / {{no_of_breakdown}}</span><br>
+              <span style="color: gray;">total operation time / no of breakdown</span> 
+            </td>
+            <td>{{mtbf}}</td>
+          </tr>
+          <tr>
+            <th>MTTR</th>
+            <td><span>{{total_down_time}} / {{no_of_breakdown}}</span><br>
+              <span style="color: gray;">total down time / no of breakdown</span> 
+            </td>
+            <td>{{mttr}}</td>
+          </tr>
+          <tr>
+            <th>Availablility</th>
+            <td><span>({{total_up_time}} / {{total_operation_time}}) * 100</span><br>
+              <span style="color: gray;">(total up time  / total operation time) * 100)</span> 
+            </td>
+            <td>{{availability}}</td>
+          </tr>
+         
+        </table>
+      </div>
+      </div>
+  

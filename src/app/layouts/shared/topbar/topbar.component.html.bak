@@ -1,0 +1,121 @@
+<!-- Topbar Start -->
+<div class="navbar navbar-expand flex-column flex-md-row navbar-custom">
+  <div class="container-fluid">
+    <!-- LOGO -->
+    <a routerLink="/" class="navbar-brand mr-0 mr-md-2 logo">
+      <span class="logo-lg">
+        <img src="assets/images/logo.jpg" alt="" height="24" />
+      </span>
+      <span class="logo-sm">
+        <img src="assets/images/logo.jpg" alt="" height="24" />
+      </span>
+    </a>
+
+    <ul class="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
+      <li class="">
+        <button class="button-menu-mobile open-left disable-btn" (click)="toggleMobileMenu($event)">
+          <i [attr.data-feather]="'menu'" class="menu-icon" appFeatherIcon></i>
+          <i [attr.data-feather]="'x'" class="close-icon" appFeatherIcon></i>
+        </button>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav flex-row ml-auto d-flex list-unstyled topnav-menu float-right mb-0">
+      <!-- <li class="d-none d-sm-block">
+        <div class="app-search">
+          <form>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search...">
+              <i [attr.data-feather]="'search'" appFeatherIcon></i>
+            </div>
+          </form>
+        </div>
+      </li> -->
+
+      <li class="nav-link">
+        <mat-icon  routerLink="/cart"   matBadgePosition="after" matBadgeColor="warn" [matBadge]="cartCount" style="cursor: pointer;
+        font-size: 25px !important;
+        margin-top: 24px;
+        width: 1px;">shopping_cart</mat-icon>
+      </li>
+     
+     
+      <li class="dropdown notification-list" placement="left"  ngbDropdown>
+
+       
+        
+         
+         
+    
+
+
+
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript: void(0);" role="button">
+        <img class="" src="../../../../assets/images/bell.svg" alt="" width="17" /> 
+          <span class="noti-icon-badge"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-lg" ngbDropdownMenu>
+
+          <!-- item-->
+          <div class="dropdown-item noti-title border-bottom" ngbDropdownItem>
+            <h5 class="m-0 font-size-16">
+              <!-- <span class="float-right">
+                <a href="javascript: void(0);" class="text-dark">
+                  <small>Clear All</small>
+                </a>
+              </span> -->
+              Notification
+            </h5>
+          </div>
+
+          <!-- <div class="slimscroll noti-scroll" appSlimScroll>
+
+            
+            <a href="javascript:void(0);" *ngFor="let item of notificationItems"
+              class="dropdown-item notify-item border-bottom" ngbDropdownItem>
+              <div class="notify-icon bg-{{ item.color }}" *ngIf="item.icon"><i class="{{ item.icon }}"></i></div>
+              <div class="notify-icon" *ngIf="item.image">
+                <img src="{{ item.image }}" class="img-fluid rounded-circle" alt="" />
+              </div>
+              <p class="notify-details">{{ item.title }}<small class="text-muted">{{ item.text }}</small>
+              </p>
+            </a>
+
+          </div> -->
+
+          <div class="slimscroll noti-scroll" appSlimScroll>
+
+            
+            <a href="javascript:void(0);"
+              class="dropdown-item notify-item border-bottom" ngbDropdownItem>
+              <!-- <div class="notify-icon bg-{{ item.color }}" *ngIf="item.icon"><i class="{{ item.icon }}"></i></div> -->
+              <!-- <div class="notify-icon" *ngIf="item.image">
+                <img src="{{ item.image }}" class="img-fluid rounded-circle" alt="" />
+              </div> -->
+              <p class="notify-details">There are no notification
+              </p>
+            </a>
+
+          </div> 
+
+          <!-- All-->
+          <!-- <a href="javascript:void(0);"
+            class="dropdown-item text-center text-primary notify-item notify-all border-top">
+            View all
+            <i class="fi-arrow-right"></i>
+          </a> -->
+
+        </div>
+
+
+    
+      </li>
+      
+
+      <img ngbTooltip="logout" (click)="logout()" class="" src="../../../../assets/images/log-out.svg" alt="" width="17" /> 
+    
+    </ul>
+  </div>
+
+</div>
+<!-- end Topbar -->

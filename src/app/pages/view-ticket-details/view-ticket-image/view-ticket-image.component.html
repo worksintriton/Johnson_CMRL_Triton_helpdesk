@@ -1,0 +1,19 @@
+<div mat-dialog-title>
+View Ticket Image
+    <button class="dialog-close-btn" (click)="dialogRef.close()">X</button>
+</div>
+<div *ngIf="ticket_photo && ticket_photo.length == 0" class="p-3">
+    No Image Found
+</div>
+<div class="col-md-12 row p-4" *ngIf="ticket_photo && ticket_photo.length > 0">
+    <ng-container *ngFor="let item of ticket_photo; ">
+        <a [href]="URI + item.image_path" target="_blank" class="pl-2 pt-2" matTooltip="Click here">
+            <img class="img-wrapper" [src]="URI + item.image_path">
+        </a>
+ 
+    </ng-container>
+</div>
+
+
+
+

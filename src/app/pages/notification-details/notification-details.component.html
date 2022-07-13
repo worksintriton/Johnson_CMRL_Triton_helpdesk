@@ -1,0 +1,101 @@
+
+<div class="col-md-12">
+    <div class="page-title"> Notification </div>
+    <div class="container-fluid">
+    
+
+
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card">
+        <div class="card-body pt-2">
+          <!-- <h6 class="font-size-16 mb-4">Chart 1</h6> -->
+        
+              <mat-form-field class="col-md-10 p-0" appearance="outline" >
+                <mat-label>Search</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="" />
+              </mat-form-field>
+        
+         
+      
+            <div class="mat-table-container" id="test1" #test1>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matTableResponsive>
+            <!-- Dynamic Column -->
+            <div *ngFor="let displayCol of displayedColumns; let i = index" matColumnDef="{{ displayCol }}">
+            <!-- <th mat-header-cell class="field-title" *matHeaderCellDef mat-sort-header> {{ displayedLabelColumns[i] }} </th> -->
+          
+
+            <th mat-header-cell class="field-title" *matHeaderCellDef mat-sort-header> 
+              <div *ngIf="displayCol != 'select'">
+             {{ displayedLabelColumns[i] }}
+              </div>
+             <div *ngIf="displayCol == 'select'">
+               <mat-checkbox (change)="$event ? masterToggle() : null"
+               [checked]="selection.hasValue() && isAllSelected()"
+               [indeterminate]="selection.hasValue() && !isAllSelected()">
+             </mat-checkbox>
+           </div>
+           </th>
+
+              <ng-container *matCellDef="let element" [ngSwitch]="displayCol">
+              
+
+                <td mat-cell *ngSwitchCase="'select'">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                  (change)="$event ? selection.toggle(element) : null"
+                  [checked]="selection.isSelected(element)">
+                  </mat-checkbox>
+                </td>
+                
+                <td mat-cell *ngSwitchCase="'createdDate'">
+                  {{ element[displayCol] | date: DATE_FORMAT }}
+                </td>
+                <td mat-cell *ngSwitchCase="'updatedDate'">
+                  {{ element[displayCol] | date: DATE_FORMAT }}
+                </td>
+                 <td mat-cell *ngSwitchDefault>
+                 <div *ngIf="!element[displayCol]">-</div>
+                 <div *ngIf="element[displayCol]">{{ element[displayCol] }}</div>
+                 </td>
+              </ng-container>
+            </div>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]= "{'formFieldAdded': row.isActive && row.isActive == 'N'}"></tr>
+          </table>
+          </div>
+          
+            <mat-paginator [pageSize]="PAGE_SIZE" [pageSizeOptions]="PAGINATION_RANGE" showFirstLastButtons></mat-paginator>
+        
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4">
+      <div class="card">
+        <div class="card-body pt-2">
+       
+          <!-- <h6 class="font-size-16 mb-4">Chart 2</h6> -->
+          <form class="email">
+            <label for="fname">Subject</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+            <label for="subject">Message</label>
+            <textarea id="subject" name="subject" placeholder="Write something..." style="height:200px"></textarea>
+
+            <input type="submit" (click)="sendNotification()" value="Send">
+        </form>
+
+          <div class="row calendar-widget">
+            <div class="col-sm-6">
+            
+            </div>
+            <div class="col-sm-6">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>

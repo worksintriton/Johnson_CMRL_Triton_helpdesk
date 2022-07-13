@@ -1,0 +1,14 @@
+<div class="col-md-12">
+  <form [formGroup]="addEditForm">
+
+        <mat-form-field class="pt-2" appearance="outline">
+          <mat-label for="">Fault type</mat-label>
+          <mat-select  formControlName="fault_type" [errorStateMatcher]="matcher" >
+            <ng-container *ngFor="let item of faults_list">
+              <mat-option [value]="item.fault_type">{{item.fault_type}}</mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error *ngIf="addEditForm.controls.fault_type.hasError('required') && isShowErrors" >Fault Type is required</mat-error>
+        </mat-form-field>
+</form>
+</div>

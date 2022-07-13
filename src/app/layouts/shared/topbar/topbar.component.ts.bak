@@ -1,0 +1,100 @@
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthenticationService } from '../../../core/services/auth.service';
+
+import { Notification } from './topbar.model';
+
+import { notificationItems } from './data';
+import { CartService } from 'src/app/core/services/cart/cart.service';
+import { User } from 'src/app/core/models/auth.models';
+
+@Component({
+  selector: 'app-topbar',
+  templateUrl: './topbar.component.html',
+  styleUrls: ['./topbar.component.scss']
+})
+export class TopbarComponent implements OnInit {
+  subscription: Subscription;
+  cartCount: number = 0;
+  notificationItems: Notification[];
+  languages: Array<{
+    id: number,
+    flag?: string,
+    name: string
+  }>;
+  selectedLanguage: {
+    id: number,
+    flag?: string,
+    name: string
+  };
+
+  openMobileMenu: boolean;
+
+  @Output() settingsButtonClicked = new EventEmitter();
+  @Output() mobileMenuButtonClicked = new EventEmitter();
+  user:User;
+  constructor(private cartService:CartService,private router: Router, private authService: AuthenticationService) {
+    this.user = this.authService.currentUser();
+    this.subscription = this.cartService.getSelectedProductCount().subscribe(productCount => {            
+      // if (message['text'] == true) {
+      //   this.cartCount = this.cartCount + 1;
+      // }else{
+          this.cartCount = this.cartCount + productCount;
+      // }
+    });
+    this.getAllCartList();
+  }
+
+  getAllCartList(){
+    this.cartService.getCartList(this.user.userId).subscribe((res: any) => {
+        this.cartCount = res[0].productList.length;
+      },(error) => { console.log("error", error);  });
+  }
+
+  ngOnInit() {
+    // get the notifications
+    this._fetchNotifications();
+    this.openMobileMenu = false;
+  
+  }
+
+  /**
+   * Change the language
+   * @param language language
+   */
+  changeLanguage(language) {
+    this.selectedLanguage = language;
+  }
+
+  /**
+   * Toggles the right sidebar
+   */
+  toggleRightSidebar() {
+    this.settingsButtonClicked.emit();
+  }
+
+  /**
+   * Toggle the menu bar when having mobile screen
+   */
+  toggleMobileMenu(event: any) {
+    event.preventDefault();
+    this.mobileMenuButtonClicked.emit();
+  }
+
+  /**
+   * Logout the user
+   */
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/account/login']);
+  }
+
+  /**
+   * Fetches the notification
+   * Note: For now returns the hard coded notifications
+   */
+  _fetchNotifications() {
+    this.notificationItems = notificationItems;
+  }
+}

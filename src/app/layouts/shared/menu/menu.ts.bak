@@ -1,0 +1,33 @@
+import { MenuItem } from './menu.model';
+
+export const MENU: MenuItem[] = [
+   
+    {
+        label: 'Dashboard',
+        icon: 'home',
+        link: '/',
+    },
+    // {
+    //     label: 'Apps',
+    //     isTitle: true
+    // },
+    {
+        label: 'Product',
+        icon: 'home',
+        link: '/manage-product',
+        // badge: {
+        //     variant: 'success',
+        //     text: '1',
+        // }
+    },
+    {
+        label: 'Manage Sales Person',
+        icon: 'home',
+        link: '/manage-sales-person',
+        // badge: {
+        //     variant: 'success',
+        //     text: '1',
+        // }
+    },
+   
+];

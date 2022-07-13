@@ -1,0 +1,143 @@
+
+
+
+    <div class="col-md-12 p-0">
+      <div class="page-title">Ticket Details </div>
+
+      <div class="row outline m-0 mt-2 mb-2 p-0">
+        <div class="col-12 pt-1 page-sub-title-2">Filter</div>
+        <form [formGroup]="formGroup" class="col-12 row p-0 pl-3">
+
+            <div class="col-md-3 pull-left">
+                <mat-form-field>
+                    <input (click)="picker1.open()" readonly matInput [matDatepicker]="picker1" placeholder="Start Date"
+                        formControlName="startDate" (dateChange)="setEndDateMinValue()" required />
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3 pull-left">
+                <mat-form-field>
+                    <input (click)="picker2.open()" readonly matInput [matDatepicker]="picker2" placeholder="End Date"
+                        formControlName="endDate" [min]="minEndDate" required />
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3 pt-2 pull-left">
+                <button mat-raised-button (click)="submitData()" class="btnnn-prime-fn">Search</button>&nbsp;&nbsp;
+                <button type="submit" (click)="filterDatasClearForm()" mat-button class="btnnn-prime-fn">Clear</button>
+            </div>
+        </form>
+    </div>
+
+
+      <div class="col-md-12 pt-3 pb-2 outline">
+        <div class="row">
+          <div class="p-0 col-10">
+            <form [formGroup]="filterForm">
+                        <mat-form-field class="col-md-3">
+                        <mat-label>Station Name</mat-label>
+                        <mat-select formControlName="station_name" multiple>
+                        <mat-option *ngFor="let item of stationList" [value]="item.station_name">{{item.station_name}}</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-3">
+                        <mat-label>Fault Type</mat-label>
+                        <mat-select formControlName="fault_type" multiple>
+                        <mat-option *ngFor="let item of faultTypeList" [value]="item.fault_type">{{item.fault_type}}</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-3">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="status" multiple>
+                          <mat-option value="Open" >Open</mat-option>
+                          <mat-option value="Pending" >Pending</mat-option>
+                          <mat-option value="Inprogress " >Inprogress </mat-option>
+                          <mat-option value="Completed">Completed</mat-option>
+                          <mat-option value="Close" >Closed</mat-option>
+
+                        </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-3">
+                        <mat-label>Type</mat-label>
+                        <mat-select formControlName="type" multiple>
+                          <mat-option value="LIFT" >LIFT</mat-option>
+                          <mat-option value="ESCALATORS">ESCALATORS</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+            </form>
+           </div>
+               <div class="col-md-1 mt-2 p-0 pl-4">
+          <button type="submit" (click)="submitData()" mat-button class="btnnn-prime-fn">Submit</button>
+          </div>
+          <div class="col-md-1 mt-2 p-0 pl-2">
+            <button type="submit" (click)="clearForm()" mat-button class="btnnn-prime-fn">Clear</button>
+            </div>
+        </div>
+      </div>
+
+
+
+
+
+        <div class="row pt-2">
+          <div class="col-md-10 mt-2 p-0 pl-3 mb-2">
+            <button mat-raised-button class="btnnn-secondary-fn mr-2" (click)="exportAsXLSX()">
+              <img  src="../../../assets/images/excel.png" style="width: 25px" class="button-icon" alt="excel icon" mat-responsive /> Export to Excel</button>
+           </div>
+
+           <div class="col-md-10 mt-2 p-0 pl-3 mb-2">
+           <button mat-raised-button class="btnnn-secondary-fn mr-2" (click)="exportAsXLSX2()">
+            <img  src="../../../assets/images/excel.png" style="width: 25px" class="button-icon" alt="excel icon" mat-responsive /> Export ticket history</button>
+         </div>
+
+        </div>
+
+
+
+        <div class="loader" *ngIf="loader_show"></div>
+        <h3 class="" *ngIf="final_data.length == 0">No Record Found</h3>
+
+        <div class="mat-table-container" id="test1" #test1 *ngIf="!loader_show" >
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matTableResponsive>
+        <!-- Dynamic Column -->
+        <div *ngFor="let displayCol of displayedColumns; let i = index" matColumnDef="{{ displayCol }}">
+        <th mat-header-cell class="field-title" *matHeaderCellDef mat-sort-header> {{ displayedLabelColumns[i] }} </th>
+
+          <ng-container *matCellDef="let element" [ngSwitch]="displayCol">
+
+            <td mat-cell *ngSwitchCase="'actions'">
+            <button mat-icon-button  matTooltip="View"
+            (click)="viewRecord(element.ticket_no)">
+            <mat-icon class="edit-mat-icon">visibility</mat-icon>
+          </button>
+
+          <button mat-icon-button  matTooltip="Edit"
+            (click)="editRecord(element)">
+            <mat-icon class="edit-mat-icon">edit</mat-icon>
+            </button>
+
+
+            </td>
+
+            <td mat-cell *ngSwitchCase="'createdDate'">
+              {{ element[displayCol] | date: DATE_FORMAT }}
+            </td>
+            <td mat-cell *ngSwitchCase="'updatedDate'">
+              {{ element[displayCol] | date: DATE_FORMAT }}
+            </td>
+             <td mat-cell *ngSwitchDefault>
+             <div *ngIf="!element[displayCol]">-</div>
+             <div *ngIf="element[displayCol]">{{ element[displayCol] }}</div>
+             </td>
+          </ng-container>
+        </div>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]= "{'formFieldAdded': row.isActive && row.isActive == 'N'}"></tr>
+      </table>
+        </div>
+        <mat-paginator [pageSize]="PAGE_SIZE" [pageSizeOptions]="PAGINATION_RANGE" showFirstLastButtons></mat-paginator>
+
+
+    </div>
